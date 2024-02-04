@@ -34,19 +34,24 @@ export function Home() {
     },
   })
 
-  const { handleSubmit, watch, formState /* reset */ } = newCycleForm
+  const { handleSubmit, watch, formState, reset } = newCycleForm
 
   console.log(
     'Mensagens de erro, caso exita, do retorno do zod: ',
     formState.errors,
   )
 
+  function handleCreateNewCycle(data: NewCycleFormData) {
+    createNewCycle(data)
+    reset()
+  }
+
   const task = watch('task')
   const isSubmitDisabled = !task
 
   return (
     <HomeContainer>
-      <form onSubmit={handleSubmit(createNewCycle)} action="">
+      <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
         <FormProvider {...newCycleForm}>
           <NewCycleForm />
         </FormProvider>
